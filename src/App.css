@@ -1,42 +1,47 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.slideAnimation {
+  -webkit-animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@-webkit-keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(100px);
+    transform: translateX(100px);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
   }
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(100px);
+    transform: translateX(100px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
   }
 }
 
-.card {
-  padding: 2em;
+.content-wrapper {
+  @apply w-full xl:w-[1260px] h-full mx-auto px-7 xl:px-0 py-10 gap-10;
 }
 
-.read-the-docs {
-  color: #888;
+.header-text {
+  @apply font-helvetica text-black text-2xl md:text-3xl font-normal;
+}
+
+.para {
+  @apply font-helvetica font-normal text-sm md:text-base text-light-gray-100;
+}
+
+.button {
+  @apply bg-black text-white font-helvetica font-normal text-sm sm:text-base  px-6 py-3 hover:bg-opacity-95 transition-all duration-200;
 }
