@@ -5,7 +5,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
 
-const Cart = () => {
+const cart = () => {
     const naviagte = useNavigate();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.cart.products);
@@ -172,4 +172,4 @@ const Cart = () => {
       );
     };
     
-    export default Cart;
+    export default cart;
