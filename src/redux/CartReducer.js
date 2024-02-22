@@ -1,36 +1,41 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import CartReducer from "./CartReducer";
-
-const persistConfig = {
-  key: "root",
-  version: 1,
-  storage,
+const initialState = {
+  products: [],
 };
 
-const persistedReducer = persistReducer(persistConfig, CartReducer);
+export const cartSlice = createSlice({
+  name: "cart",
+  initialState,
+  reducers: {
+    addToCart: (state, action) => {
+      const item = state.products.find((item) => item.id === action.payload.id);
 
-export const store = configureStore({
-  reducer: {
-    cart: persistedReducer,
+      if (item) {
+        item.quantity += action.payload.quantity;
+      } else {
+        state.products.push(action.payload);
+      }
+    },
+    removeItem: (state, action) => {
+      state.products = state.products.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+    updateQuantity: (state, action) => {
+      const { id, quantity } = action.payload;
+      const item = state.products.find((item) => item.id === id);
+
+      if (item) {
+        item.quantity = quantity;
+      }
+    },
+    resetCart: (state) => {
+      state.products = [];
+    },
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
 });
 
-export let persistor = persistStore(store);
+export const { addToCart, removeItem, updateQuantity, resetCart } = cartSlice.actions;
+
+export default cartSlice.reducer;
